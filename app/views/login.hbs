@@ -1,0 +1,28 @@
+<div class="user-form mt-5">
+    <form class="container form-signin">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Вход в систему</h1>
+        <input id="inputEmail" class="form-control mb-4" placeholder="Email address" required="" autofocus="">
+        <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Password" required="">
+        <a href="/register" class="link-info d-block">Регистрация</a>
+        <button class="btn btn-lg btn-primary btn-block mt-3" onclick="login()" type="button">Вход</button>
+    </form>
+</div>
+<script>
+    function login(){
+        fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: document.getElementById('inputEmail').value,
+                    password: document.getElementById('inputPassword').value,
+                })
+        }).then((res)=>{
+            console.log(res)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+</script>
