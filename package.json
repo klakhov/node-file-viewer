@@ -20,6 +20,7 @@
   "homepage": "https://github.com/klakhov/node-file-viewer#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
     "express-hbs": "^2.4.0",
     "jsonwebtoken": "^8.5.1",

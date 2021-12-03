@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const assert = require("assert");
+const bcrypt = require("bcrypt");
 
 const schema = new mongoose.Schema({
     email: {
@@ -24,5 +26,15 @@ const schema = new mongoose.Schema({
         ]
     },
 });
+
+schema.methods = {
+  setNewPassword: async function (password, repeatPassword) {
+    assert.deepStrictEqual(password, repeatPassword);
+    this.password = password;
+    await this.validate();
+    this.password = await bcrypt.hash(password, 10);
+    await this.save();
+  },
+}
 
 module.exports = mongoose.model('User', schema);

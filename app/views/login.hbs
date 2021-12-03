@@ -19,10 +19,15 @@
                     email: document.getElementById('inputEmail').value,
                     password: document.getElementById('inputPassword').value,
                 })
-        }).then((res)=>{
-            console.log(res)
-        }).catch((err)=>{
-            console.log(err)
+        }).then(async (res)=>{
+            const body = await res.json();
+            if(res.ok){
+                const token = body.token;
+                cookie.set('token', token);
+                // window.location.replace(window.location.origin+'/profile');
+            }else{
+                console.log(body);
+            }
         })
     }
 </script>
