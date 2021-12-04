@@ -11,15 +11,20 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+const auth = require('../app/middleware/jwt');
 
 const router = require('express').Router();
 
 const UserController = require('../app/сontrollers/user-controller');
+const FileController = require('../app/сontrollers/file-controller');
 
 router.route("/login")
       .post(UserController.login);
 
 router.route("/register")
       .post(UserController.register);
+
+router.route("/files")
+      .post(auth, FileController.create);
 
 module.exports = router;

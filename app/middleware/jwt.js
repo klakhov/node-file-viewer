@@ -8,18 +8,20 @@ module.exports = function(req, res, next){
     if(token){
         jwt.verify(token, config.secretJWT, async (err, decoded) => {
             if(err || !!!decoded){
-                res.status(401).json(["Unauthorized"]);
+                res.clearCookie('token');
+                res.redirect('/login');
             }else{
                 const user = await User.findOne({_id: decoded.userId});
                 if(user){
                     req.user = user;
                     next();
                 }else{
-                    res.status(401).json(["Specified user do not exist"]);
+                    res.clearCookie('token');
+                    res.redirect('/login');
                 }
             }
         })
     }else{
-        res.status(401).json(["Token is not specified"])
+        res.redirect('/login');
     }
 }

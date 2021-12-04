@@ -7,16 +7,11 @@ const User = require('../models/user');
 
 
 module.exports = {
-    loginPage: async (req, res) => {
-        res.render('login', {layout:'layouts/not-logined'});
-    },
-    registerPage: async (req, res) => {
-        res.render('register', {layout:'layouts/not-logined'});
-    },
-    profilePage: async (req, res) => {
-        res.render('profile');
-    },
     register: async (req, res) => {
+        const token = req.cookies.token;
+        if(token){
+            res.redirect('/profile');
+        }
         let user = await User.findOne({email: req.body.email}).exec();
         if(user){
             res.status(400).json(["That email is already registered"]);
@@ -44,6 +39,10 @@ module.exports = {
     },
 
     login: async (req, res) => {
+        const token = req.cookies.token;
+        if(token){
+            res.redirect('/profile');
+        }
         const user = await User.findOne({email: req.body.email}).exec();
         if (user) {
             //check if request data is correct

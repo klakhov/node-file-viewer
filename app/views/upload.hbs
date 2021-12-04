@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="alert alert-danger d-none" role="alert" id="error">
+    </div>
+    <div class="alert alert-success d-none" role="alert" id="success">
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            Выберете новый файл для загрузки:
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3">
+            <input class="form-control" type="file" id="formFile">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary" onclick="uploadFiles()">Загрузить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function uploadFiles(){
+        const input = document.getElementById('formFile');
+        const files = input.files;
+        const errorBlock = document.getElementById('error');
+        const successBlock = document.getElementById('success');
+        if(files.length !== 1){
+            errorBlock.classList.remove('d-none');
+            errorBlock.innerHTML = "Необходимо выбрать файл!"
+        }
+        const file = files[0];
+        const data = new FormData();
+        data.append('file', file);
+        fetch('/files',{
+            method: 'POST',
+            body: data
+        }).then((res)=>{
+            const body = await res.json();
+            if(res.ok){
+                errorBlock.classList.add('d-none');
+                successBlock.classList.remove('d-none');
+                successBlock.innerHTML = `Файл ${file.name} успешно загружен!`
+                // window.location.replace(window.location.origin+'/profile');
+            }else{
+                errorBlock.classList.remove('d-none');
+                body.forEach(error=>{
+                    errorBlock.innerHTML += error+" ";
+                })
+            }
+        })
+    }
+
+
+</script>

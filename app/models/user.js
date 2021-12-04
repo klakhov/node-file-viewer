@@ -25,6 +25,12 @@ const schema = new mongoose.Schema({
               "The password length should be more than 6 characters"
         ]
     },
+    files: [
+      {
+        type: mongoose.Schema.Types.ObjectID,
+        ref: "File"
+      }
+    ]
 });
 
 schema.methods = {

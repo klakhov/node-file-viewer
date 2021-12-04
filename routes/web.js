@@ -1,19 +1,20 @@
 
 const router = require('express').Router();
 
-const UserController = require('../app/сontrollers/user-controller');
-
+const PageController = require('../app/сontrollers/page-controller');
 const auth = require('../app/middleware/jwt');
 
 router.route("/login")
-      .get(UserController.loginPage);
-
+      .get(PageController.loginPage);
 
 router.route("/register")
-      .get(UserController.registerPage);
+      .get(PageController.registerPage);
 
 router.route('/profile')
-      .get(auth, UserController.profilePage);
+      .get(auth, PageController.profilePage);
+
+router.route('/upload')
+      .get(auth, PageController.uploadPage);
 
 
 module.exports = router;
