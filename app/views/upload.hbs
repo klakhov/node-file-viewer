@@ -33,11 +33,12 @@
         const file = files[0];
         const data = new FormData();
         data.append('file', file);
-        fetch('/files',{
+        data.append('aaa', 'bbb');
+        fetch('/api/files',{
             method: 'POST',
             body: data
-        }).then((res)=>{
-            const body = await res.json();
+        }).then(async (res)=>{
+            // const body = await res.json();
             if(res.ok){
                 errorBlock.classList.add('d-none');
                 successBlock.classList.remove('d-none');

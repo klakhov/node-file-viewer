@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    uuid: {
+    publicId: {
         type: String,
         required: true,
         unique: true,

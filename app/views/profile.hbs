@@ -5,19 +5,22 @@
     </div>
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-primary" onclick="getFiles()">Взять на оценку</button>
+            <button class="btn btn-primary" onclick="getLinks()">Взять на оценку</button>
         </div>
-    </div>
-    <div class="row">
-        
-    </div>
-    <div class="row">
-
     </div>
 </div>
 
 <script>
-    function getFiles(){
-
+    function getLinks(){
+        fetch('/api/evaluation', {
+            method: 'GET',
+        }).then(async (res)=>{
+            const body = await res.json();
+            if(res.ok){
+                console.log(body);
+            }else{
+                console.log(body);
+            }
+        })
     }
 </script>
