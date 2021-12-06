@@ -12,6 +12,7 @@ router.route("/register")
       .post(UserController.register);
 
 router.route("/files")
+      .get(FileController.show)
       .post(auth, FileController.create);
 
 router.route('/evaluation')

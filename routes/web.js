@@ -16,5 +16,8 @@ router.route('/profile')
 router.route('/upload')
       .get(auth, PageController.uploadPage);
 
+router.route("/evaluation")
+      .get(auth, PageController.showFile);
+
 
 module.exports = router;

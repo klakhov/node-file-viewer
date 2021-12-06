@@ -15,7 +15,8 @@
 const config = {
     port: 3000,
     mongoURI: "mongodb+srv://user:admin123@nodetestapp.hkuwy.mongodb.net/primary",
-    secretJWT: "secretKey"
+    secretJWT: "secretKey",
+    origin: 'http://localhost'
 }
 
 module.exports = config;
