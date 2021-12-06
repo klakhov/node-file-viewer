@@ -24,9 +24,9 @@
             if(res.ok){
                 const token = body.token;
                 cookie.set('token', token);
-                // window.location.replace(window.location.origin+'/profile');
+                window.location.replace(window.location.origin+'/profile');
             }else{
-                console.log(body);
+                alert(body);
             }
         })
     }

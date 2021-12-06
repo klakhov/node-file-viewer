@@ -1,28 +1,37 @@
-
 <div class="container">
     <div class="row">
         <div class="col">Добро пожаловать, {{useremail}}</div>
     </div>
-    <div class="container" id="evaluation-links"></div>
+    <div class="container d-flex flex-column" id="evaluation-links"></div>
     <div class="row mt-3">
-        <div class="col">
-            <button class="btn btn-primary" onclick="getLinks()">Взять файлы на оценку</button>
+        <div class="col-auto">
+            <button class="btn btn-primary" onclick="getLinks()" id='get-button'>Взять файлы на оценку</button>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" href="/my-files" role="button">Посмотреть мои файлы</a>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-light" onclick="logout()">Выход</button>
         </div>
     </div>
 </div>
 
 <script>
     function getLinks(){
-        fetch('/api/evaluation', {
+        fetch('/api/review', {
             method: 'GET',
         }).then(async (res)=>{
             const body = await res.json();
             if(res.ok){
                 const evalLinks = document.getElementById('evaluation-links');
+                const getButton = document.getElementById('get-button');
+                evalLinks.innerHTML = '';
+                getButton.innerHTML = 'Взять другие файлы';
                 body.forEach((id, index)=>{
                     const link = document.createElement('a');
-                    link.href = `http://localhost:3000/evaluation?id=${id}`;
+                    link.href = `${window.location.origin}/review?id=${id}`;
                     link.innerHTML = `Открыть файл #${index+1}`;
+                    link.target = '_blank';
                     evalLinks.appendChild(link);
                 });
                 console.log(body);
@@ -30,5 +39,9 @@
                 console.log(body);
             }
         })
+    }
+    function logout(){
+        cookie.remove('token');
+        window.location.href = `${window.location.origin}/`;
     }
 </script>

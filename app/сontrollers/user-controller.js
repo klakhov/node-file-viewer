@@ -11,10 +11,12 @@ module.exports = {
         const token = req.cookies.token;
         if(token){
             res.redirect('/profile');
+            return;
         }
         let user = await User.findOne({email: req.body.email}).exec();
         if(user){
             res.status(400).json(["That email is already registered"]);
+            return;
         }
         user = new User({
             email: req.body.email,
@@ -38,23 +40,17 @@ module.exports = {
     },
 
     login: async (req, res) => {
-        const token = req.cookies.token;
-        if(token){
-            res.redirect('/profile');
-        }
         const user = await User.findOne({email: req.body.email}).exec();
         if (user) {
             const match = await bcrypt.compare(req.body.password, user.password);
             if (!match) {
-                console.log('here');
                 res.status(400).json(["Wrong email or password"])
+                return;
             }
             const token = jwt.sign({userId: user._id}, config.secretJWT);
             res.status(200).json({token: token});
         } else {
             res.status(400).json(["That email is not registered"])
         }
-
-        res.status(200).send();
     },
 }

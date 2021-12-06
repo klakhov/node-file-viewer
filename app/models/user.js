@@ -30,6 +30,12 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectID,
         ref: "File"
       }
+    ],
+    reviews: [
+      {
+        type: mongoose.Schema.Types.ObjectID,
+        ref: "Reviews"
+      }
     ]
 });
 
@@ -41,6 +47,19 @@ schema.methods = {
     this.password = await bcrypt.hash(password, 10);
     await this.save();
   },
+  getFiles: async function(options){
+    await this.populate({
+        path: 'files',
+        options,
+    });
+    return this.files;
+  },
+  getReviews: async function(){
+    await this.populate({
+      path: 'reviews',
+    });
+    return this.reviews;
+  }
 }
 
 module.exports = mongoose.model('User', schema);

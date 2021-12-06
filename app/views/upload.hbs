@@ -34,16 +34,15 @@
         const data = new FormData();
         data.append('file', file);
         data.append('aaa', 'bbb');
-        fetch('/api/files',{
+        fetch('/api/file',{
             method: 'POST',
             body: data
         }).then(async (res)=>{
-            // const body = await res.json();
+            const body = await res.json();
             if(res.ok){
                 errorBlock.classList.add('d-none');
                 successBlock.classList.remove('d-none');
                 successBlock.innerHTML = `Файл ${file.name} успешно загружен!`
-                // window.location.replace(window.location.origin+'/profile');
             }else{
                 errorBlock.classList.remove('d-none');
                 body.forEach(error=>{

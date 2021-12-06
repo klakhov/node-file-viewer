@@ -20,11 +20,34 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         default: null,
+    },
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review',
+        default: null,
+    }],
+    reviewsCount: {
+        type: Number,
+        get: function (){
+            return this.reviews.length
+        }
     }
 });
 
 schema.methods = {
-
+    getUser: async function(){
+        await this.populate({
+            path: 'user',
+        });
+        return this.user;
+    },
+    getReviews: async function(options){
+        await this.populate({
+            path: 'reviews',
+            options
+        });
+        return this.reviews;
+    }
 }
 
 module.exports = mongoose.model('File', schema);

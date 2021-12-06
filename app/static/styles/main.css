@@ -12,3 +12,28 @@
     align-items: center;
     flex-direction: column;
 }
+
+.page{
+    min-height: 100vh;
+    background-color: #F5F5F5;
+    padding-top: 30px;
+}
+
+
+
+.star svg path{
+    fill: lightgray;
+}
+
+.star svg:hover path{
+    fill: gray;
+    cursor: pointer;
+}
+
+.star-static svg path{
+    fill: lightgray;
+}
+
+.star-active svg path{
+    fill: gray;
+}

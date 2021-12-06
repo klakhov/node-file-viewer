@@ -11,11 +11,12 @@ router.route("/login")
 router.route("/register")
       .post(UserController.register);
 
-router.route("/files")
+router.route("/file")
       .get(FileController.show)
       .post(auth, FileController.create);
 
-router.route('/evaluation')
-      .get(auth, FileController.getLinks);
+router.route('/review')
+      .get(auth, FileController.getLinks)
+      .post(auth, FileController.createReview);
 
 module.exports = router;
