@@ -28,7 +28,8 @@
         const successBlock = document.getElementById('success');
         if(files.length !== 1){
             errorBlock.classList.remove('d-none');
-            errorBlock.innerHTML = "Необходимо выбрать файл!"
+            errorBlock.innerHTML = "Необходимо выбрать файл!";
+            return;
         }
         const file = files[0];
         const data = new FormData();

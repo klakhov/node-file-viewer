@@ -53,6 +53,10 @@ module.exports = {
     fileReviewsPage: async(req, res) => {
         const file = await File.findOne({publicId: req.query.id}).exec();
         const user = req.user;
+        if(!file.user.equals(user._id)){
+            res.render('404');
+            return;
+        }
         if(file){
             const reviews = await file.getReviews({ lean: true });
             reviews.forEach(element => {
@@ -66,7 +70,6 @@ module.exports = {
                 });
             });
             res.render('reviews', {
-                abc: 123,
                 filename: file.originalName,
                 hasReviews: reviews.length !== 0,
                 username: user.email,

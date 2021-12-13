@@ -40,6 +40,11 @@ module.exports = {
     },
 
     login: async (req, res) => {
+        const token = req.cookies.token;
+        if(token){
+            res.redirect('/profile');
+            return;
+        }
         const user = await User.findOne({email: req.body.email}).exec();
         if (user) {
             const match = await bcrypt.compare(req.body.password, user.password);
